@@ -5,6 +5,7 @@ import 'package:movies_flutter/util/api_client.dart';
 import 'package:movies_flutter/util/utils.dart';
 import 'package:movies_flutter/widgets/search/search_item.dart';
 import 'package:rxdart/rxdart.dart';
+import 'dart:async';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _SearchPageState extends State<SearchScreen> {
   LoadingState _currentState = LoadingState.WAITING;
   PublishSubject<String> querySubject = PublishSubject();
   TextEditingController textController = TextEditingController();
+  Timer _timer;
 
   _SearchPageState() {
     searchBar = SearchBar(
@@ -26,6 +28,16 @@ class _SearchPageState extends State<SearchScreen> {
         setState: setState,
         buildDefaultAppBar: _buildAppBar,
         onSubmitted: querySubject.add);
+
+
+    //we can't call setState immediately (Don't know why, maybe widget is not yet built)
+    //but even if I try running this after 1 ms, it works
+    _timer = new Timer(const Duration(milliseconds: 50), () {
+      setState(() {
+        searchBar.beginSearch(context);
+      });
+    });
+
   }
 
   @override
@@ -43,6 +55,7 @@ class _SearchPageState extends State<SearchScreen> {
         .switchMap((query) =>
             Observable.fromFuture(_apiClient.getSearchResults(query)))
         .listen(_setResults);
+
   }
 
   void _setResults(List<SearchResult> results) {
