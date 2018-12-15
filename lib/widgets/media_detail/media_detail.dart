@@ -85,12 +85,17 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: primary,
-        body: CustomScrollView(
-          slivers: <Widget>[
-            _buildAppBar(widget._mediaItem),
-            _buildContentSection(widget._mediaItem),
-          ],
-        ));
+        body: SafeArea(
+          top: true,
+          bottom: false,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              _buildAppBar(widget._mediaItem),
+              _buildContentSection(widget._mediaItem),
+            ],
+          ),
+        ),
+    );
   }
 
   Widget _buildAppBar(MediaItem movie) {
