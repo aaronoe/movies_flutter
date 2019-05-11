@@ -4,9 +4,11 @@ import 'package:movies_flutter/util/navigator.dart';
 import 'package:movies_flutter/util/styles.dart';
 
 class SearchItemCard extends StatelessWidget {
-  final SearchResult item;
 
   SearchItemCard(this.item);
+
+  final SearchResult item;
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class SearchItemCard extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                         color: primaryDark,
-                        borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                        borderRadius: const BorderRadius.all(Radius.circular(4.0))),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Text(item.mediaType.toUpperCase(),
@@ -44,7 +46,7 @@ class SearchItemCard extends StatelessWidget {
                   ),
                   Text(
                     item.title,
-                    style: TextStyle(fontSize: 18.0),
+                    style: const TextStyle(fontSize: 18.0),
                   ),
                   Container(
                     height: 4.0,
@@ -59,7 +61,7 @@ class SearchItemCard extends StatelessWidget {
     );
   }
 
-  _handleTap(BuildContext context) {
+   void _handleTap(BuildContext context) {
     switch (item.mediaType) {
       case "movie":
         goToMovieDetails(context, item.asMovie);

@@ -16,7 +16,8 @@ class TvSeason {
   }
 
   String getFormattedTitle() {
-    if (seasonNumber == 0) return 'Extras';
+    if (seasonNumber == 0)
+      return 'Extras';
     return 'Season $seasonNumber (${getReleaseYear()})';
   }
 

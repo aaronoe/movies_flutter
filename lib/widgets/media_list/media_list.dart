@@ -15,15 +15,15 @@ class MediaList extends StatefulWidget {
 }
 
 class _MediaListState extends State<MediaList> {
-  List<MediaItem> _movies = List();
+  final List<MediaItem> _movies = List<MediaItem>();
   int _pageNumber = 1;
   LoadingState _loadingState = LoadingState.LOADING;
   bool _isLoading = false;
 
-  _loadNextPage() async {
+  Future<void> _loadNextPage() async {
     _isLoading = true;
     try {
-      var nextMovies =
+      final nextMovies =
           await widget.provider.loadMedia(widget.category, page: _pageNumber);
       setState(() {
         _loadingState = LoadingState.DONE;
@@ -63,9 +63,9 @@ class _MediaListState extends State<MediaList> {
               return MediaListItem(_movies[index]);
             });
       case LoadingState.ERROR:
-        return Text('Sorry, there was an error loading the data!');
+        return const Text('Sorry, there was an error loading the data!');
       case LoadingState.LOADING:
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       default:
         return Container();
     }

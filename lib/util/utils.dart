@@ -41,14 +41,14 @@ List<String> getGenresForIds(List<int> genreIds) =>
     genreIds.map((id) => _genreMap[id]).toList();
 
 String getGenreString(List<int> genreIds) {
-  StringBuffer buffer = StringBuffer();
+  final StringBuffer buffer = StringBuffer();
   buffer.writeAll(getGenresForIds(genreIds), ", ");
   return buffer.toString();
 }
 
 String concatListToString(List<dynamic> data, String mapKey) {
-  StringBuffer buffer = StringBuffer();
-  buffer.writeAll(data.map<String>((map) => map[mapKey]).toList(), ", ");
+  final StringBuffer buffer = StringBuffer();
+  buffer.writeAll(data.map<String>((dynamic map) => map[mapKey]).toList(), ", ");
   return buffer.toString();
 }
 
@@ -66,13 +66,13 @@ String formatDate(String date) {
 }
 
 String formatRuntime(int runtime) {
-  int hours = runtime ~/ 60;
-  int minutes = runtime % 60;
+  final int hours = runtime ~/ 60;
+  final int minutes = runtime % 60;
 
   return '$hours\h $minutes\m';
 }
 
-launchUrl(String url) async {
+Future<void> launchUrl(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   }
@@ -80,8 +80,8 @@ launchUrl(String url) async {
 
 String getImdbUrl(String imdbId) => 'http://www.imdb.com/title/$imdbId';
 
-final String _imageUrlLarge = "https://image.tmdb.org/t/p/w500/";
-final String _imageUrlMedium = "https://image.tmdb.org/t/p/w300/";
+const String _imageUrlLarge = "https://image.tmdb.org/t/p/w500/";
+const String _imageUrlMedium = "https://image.tmdb.org/t/p/w300/";
 
 String getMediumPictureUrl(String path) => _imageUrlMedium + path;
 

@@ -19,11 +19,13 @@ import 'package:movies_flutter/widgets/utilviews/text_bubble.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class MediaDetailScreen extends StatefulWidget {
+
+  MediaDetailScreen(this._mediaItem, this.provider);
+
   final MediaItem _mediaItem;
   final MediaProvider provider;
   final ApiClient _apiClient = ApiClient();
 
-  MediaDetailScreen(this._mediaItem, this.provider);
 
   @override
   MediaDetailScreenState createState() {
@@ -44,41 +46,46 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
     _loadCast();
     _loadDetails();
     _loadSimilar();
-    if (widget._mediaItem.type == MediaType.show) _loadSeasons();
+    if (widget._mediaItem.type == MediaType.show)
+      _loadSeasons();
 
     Timer(Duration(milliseconds: 100), () => setState(() => _visible = true));
   }
 
-  void _loadCast() async {
+  Future<void> _loadCast() async {
     try {
-      List<Actor> cast = await widget.provider.loadCast(widget._mediaItem.id);
+      final List<Actor> cast = await widget.provider.loadCast(widget._mediaItem.id);
       setState(() => _actorList = cast);
-    } catch (e) {}
+    } catch (e) {
+      //No debería generar excepcion
+    }
   }
 
-  void _loadDetails() async {
+  Future<void> _loadDetails() async {
     try {
-      dynamic details = await widget.provider.getDetails(widget._mediaItem.id);
+      final dynamic details = await widget.provider.getDetails(widget._mediaItem.id);
       setState(() => _mediaDetails = details);
     } catch (e) {
       e.toString();
     }
   }
 
-  void _loadSeasons() async {
+  Future<void> _loadSeasons() async {
     try {
-      List<TvSeason> seasons =
+      final List<TvSeason> seasons =
           await widget._apiClient.getShowSeasons(widget._mediaItem.id);
       setState(() => _seasonList = seasons);
-    } catch (e) {}
+    } catch (e) {//No debería generar excepcion
+      }
   }
 
-  void _loadSimilar() async {
+  Future<void> _loadSimilar() async {
     try {
-      List<MediaItem> similar =
+      final List<MediaItem> similar =
           await widget.provider.getSimilar(widget._mediaItem.id);
       setState(() => _similarMedia = similar);
-    } catch (e) {}
+    } catch (e) {//No debería generar excepcion
+       }
   }
 
   @override
@@ -99,7 +106,7 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
       pinned: true,
       actions: <Widget>[
         ScopedModelDescendant<AppModel>(
-            builder: (context, child, AppModel model) => IconButton(
+            builder: (BuildContext context, child, AppModel model) => IconButton(
                 icon: Icon(model.isItemFavorite(widget._mediaItem)
                     ? Icons.favorite
                     : Icons.favorite_border),
@@ -139,24 +146,24 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
               children: <Widget>[
                 TextBubble(
                   mediaItem.getReleaseYear().toString(),
-                  backgroundColor: Color(0xffF47663),
+                  backgroundColor: const Color(0xffF47663),
                 ),
                 Container(
                   width: 8.0,
                 ),
                 TextBubble(mediaItem.voteAverage.toString(),
-                    backgroundColor: Color(0xffF47663)),
+                    backgroundColor: const Color(0xffF47663)),
               ],
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(mediaItem.title,
-                  style: TextStyle(color: Color(0xFFEEEEEE), fontSize: 20.0)),
+                  style: const TextStyle(color: Color(0xFFEEEEEE), fontSize: 20.0)),
             ),
             Row(
               children: getGenresForIds(mediaItem.genreIds)
                   .sublist(0, min(5, mediaItem.genreIds.length))
-                  .map((genre) => Row(
+                  .map((String genre) => Row(
                         children: <Widget>[
                           TextBubble(genre),
                           Container(
@@ -206,7 +213,7 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
               padding: const EdgeInsets.all(16.0),
               child: _actorList == null
                   ? Center(
-                      child: CircularProgressIndicator(),
+                      child: const CircularProgressIndicator(),
                     )
                   : CastSection(_actorList)),
         ),
@@ -216,7 +223,7 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
               padding: const EdgeInsets.all(16.0),
               child: _mediaDetails == null
                   ? Center(
-                      child: CircularProgressIndicator(),
+                      child: const CircularProgressIndicator(),
                     )
                   : MetaSection(_mediaDetails)),
         ),
@@ -232,9 +239,9 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
             : Container(),
         Container(
             decoration: BoxDecoration(
-                color: (widget._mediaItem.type == MediaType.movie
+                color: widget._mediaItem.type == MediaType.movie
                     ? primary
-                    : primaryDark)),
+                    : primaryDark),
             child: _similarMedia == null
                 ? Container()
                 : SimilarSection(_similarMedia))

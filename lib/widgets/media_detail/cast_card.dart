@@ -5,11 +5,13 @@ import 'package:movies_flutter/util/styles.dart';
 import 'package:movies_flutter/widgets/utilviews/bottom_gradient.dart';
 
 class CastCard extends StatelessWidget {
+
+  CastCard(this.actor, {this.height= 140.0, this.width= 100.0});
+
   final double height;
   final double width;
   final Actor actor;
 
-  CastCard(this.actor, {this.height: 140.0, this.width: 100.0});
 
   @override
   Widget build(BuildContext context) {

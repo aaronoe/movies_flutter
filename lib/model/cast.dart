@@ -6,8 +6,8 @@ class Actor {
   String profilePicture;
   int id;
 
-  get profilePictureUrl =>
-      getMediumPictureUrl((profilePicture != null ? profilePicture : ""));
+  String get profilePictureUrl =>
+      getMediumPictureUrl(profilePicture != null ? profilePicture : "");
 
   Actor.fromJson(Map jsonMap)
       : character = jsonMap['character'],

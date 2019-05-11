@@ -9,15 +9,17 @@ import 'package:movies_flutter/widgets/media_list/media_list_item.dart';
 import 'package:movies_flutter/widgets/utilviews/fitted_circle_avatar.dart';
 
 class ActorDetailScreen extends StatelessWidget {
-  final Actor _actor;
-  final ApiClient _apiClient = ApiClient();
 
   ActorDetailScreen(this._actor);
 
+  final Actor _actor;
+  final ApiClient _apiClient = ApiClient();
+
+
   @override
   Widget build(BuildContext context) {
-    var movieFuture = _apiClient.getMoviesForActor(_actor.id);
-    var showFuture = _apiClient.getShowsForActor(_actor.id);
+    final movieFuture = _apiClient.getMoviesForActor(_actor.id);
+    final showFuture = _apiClient.getShowsForActor(_actor.id);
 
     return DefaultTabController(
       length: 2,
@@ -43,10 +45,10 @@ class ActorDetailScreen extends StatelessWidget {
       expandedHeight: 240.0,
       bottom: TabBar(
         tabs: <Widget>[
-          Tab(
+          const Tab(
             icon: Icon(Icons.movie),
           ),
-          Tab(
+          const Tab(
             icon: Icon(Icons.tv),
           ),
         ],
@@ -104,7 +106,7 @@ class ActorDetailScreen extends StatelessWidget {
               )
             : Padding(
                 padding: const EdgeInsets.all(32.0),
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(child: const CircularProgressIndicator()),
               );
       },
     );

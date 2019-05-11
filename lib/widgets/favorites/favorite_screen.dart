@@ -12,14 +12,14 @@ class FavoriteScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Favorites"),
-          actions: <Widget>[ToggleThemeButton()],
+          title: const Text("Favorites"),
+          actions: const <Widget>[ToggleThemeButton()],
           bottom: TabBar(
             tabs: [
-              Tab(
+              const Tab(
                 icon: Icon(Icons.movie),
               ),
-              Tab(
+              const Tab(
                 icon: Icon(Icons.tv),
               ),
             ],
@@ -45,8 +45,8 @@ class _FavoriteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _media.length == 0
-        ? Center(child: Text("You have no favorites yet!"))
+    return _media.isEmpty
+        ? Center(child: const Text("You have no favorites yet!"))
         : ListView.builder(
             itemCount: _media.length,
             itemBuilder: (BuildContext context, int index) {

@@ -3,16 +3,19 @@ import 'package:movies_flutter/model/cast.dart';
 import 'package:movies_flutter/widgets/media_detail/cast_card.dart';
 
 class CastSection extends StatelessWidget {
-  final List<Actor> _cast;
 
   CastSection(this._cast);
+
+  final List<Actor> _cast;
+
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           "Cast",
           style: TextStyle(color: Colors.white),
         ),

@@ -23,13 +23,13 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          ToggleThemeButton(),
+          const ToggleThemeButton(),
           IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
+            icon: const Icon(Icons.search, color: Colors.white),
             onPressed: () => goToSearch(context),
           )
         ],
-        title: Text("Cinematic"),
+        title: const Text("Cinematic"),
       ),
       drawer: Drawer(
         child: ListView(
@@ -44,42 +44,42 @@ class HomePageState extends State<HomePage> {
                   ])),
                 )),
             ListTile(
-              title: Text("Search"),
-              trailing: Icon(Icons.search),
+              title: const Text("Search"),
+              trailing: const Icon(Icons.search),
               onTap: () => goToSearch(context),
             ),
             ListTile(
-              title: Text("Favorites"),
-              trailing: Icon(Icons.favorite),
+              title: const Text("Favorites"),
+              trailing: const Icon(Icons.favorite),
               onTap: () => goToFavorites(context),
             ),
-            Divider(
+            const Divider(
               height: 5.0,
             ),
             ListTile(
-              title: Text("Movies"),
+              title: const Text("Movies"),
               selected: mediaType == MediaType.movie,
-              trailing: Icon(Icons.local_movies),
+              trailing: const Icon(Icons.local_movies),
               onTap: () {
                 _changeMediaType(MediaType.movie);
                 Navigator.of(context).pop();
               },
             ),
             ListTile(
-              title: Text("TV Shows"),
+              title: const Text("TV Shows"),
               selected: mediaType == MediaType.show,
-              trailing: Icon(Icons.live_tv),
+              trailing: const Icon(Icons.live_tv),
               onTap: () {
                 _changeMediaType(MediaType.show);
                 Navigator.of(context).pop();
               },
             ),
-            Divider(
+            const Divider(
               height: 5.0,
             ),
             ListTile(
-              title: Text("Close"),
-              trailing: Icon(Icons.close),
+              title: const Text("Close"),
+              trailing: const Icon(Icons.close),
               onTap: () => Navigator.of(context).pop(),
             )
           ],
@@ -114,20 +114,20 @@ class HomePageState extends State<HomePage> {
   List<BottomNavigationBarItem> _getNavBarItems() {
     if (mediaType == MediaType.movie) {
       return [
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.thumb_up), title: Text('Popular')),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.update), title: Text('Upcoming')),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.star), title: Text('Top Rated')),
       ];
     } else {
       return [
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.thumb_up), title: Text('Popular')),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.live_tv), title: Text('On The Air')),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.star), title: Text('Top Rated')),
       ];
     }
@@ -139,15 +139,15 @@ class HomePageState extends State<HomePage> {
             MediaList(
               movieProvider,
               "popular",
-              key: Key("movies-popular"),
+              key: const Key("movies-popular"),
             ),
-            MediaList(movieProvider, "upcoming", key: Key("movies-upcoming")),
-            MediaList(movieProvider, "top_rated", key: Key("movies-top_rated")),
+            MediaList(movieProvider, "upcoming", key: const Key("movies-upcoming")),
+            MediaList(movieProvider, "top_rated", key: const Key("movies-top_rated")),
           ]
         : <Widget>[
-            MediaList(showProvider, "popular", key: Key("shows-popular")),
-            MediaList(showProvider, "on_the_air", key: Key("shows-on_the_air")),
-            MediaList(showProvider, "top_rated", key: Key("shows-top_rated")),
+            MediaList(showProvider, "popular", key: const Key("shows-popular")),
+            MediaList(showProvider, "on_the_air", key: const Key("shows-on_the_air")),
+            MediaList(showProvider, "top_rated", key: const Key("shows-top_rated")),
           ];
   }
 
