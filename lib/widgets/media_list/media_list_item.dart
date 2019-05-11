@@ -12,11 +12,11 @@ class MediaListItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12.0),
       child: Row(
-        children: [
+        children: <Widget>[
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Container(
                   child: Text(
                     movie.title,
@@ -54,7 +54,7 @@ class MediaListItem extends StatelessWidget {
                   Container(
                     width: 4.0,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.star,
                     size: 16.0,
                   )
@@ -72,7 +72,7 @@ class MediaListItem extends StatelessWidget {
                   Container(
                     width: 4.0,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.date_range,
                     size: 16.0,
                   )

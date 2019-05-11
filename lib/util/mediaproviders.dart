@@ -5,7 +5,7 @@ import 'package:movies_flutter/model/mediaitem.dart';
 import 'package:movies_flutter/util/api_client.dart';
 
 abstract class MediaProvider {
-  Future<List<MediaItem>> loadMedia(String category, {int page: 1});
+  Future<List<MediaItem>> loadMedia(String category, {int page= 1});
 
   Future<List<Actor>> loadCast(int mediaId);
 
@@ -17,10 +17,10 @@ abstract class MediaProvider {
 class MovieProvider extends MediaProvider {
   MovieProvider();
 
-  ApiClient _apiClient = ApiClient();
+  final ApiClient _apiClient = ApiClient();
 
   @override
-  Future<List<MediaItem>> loadMedia(String category, {int page: 1}) {
+  Future<List<MediaItem>> loadMedia(String category, {int page= 1}) {
     return _apiClient.fetchMovies(category: category, page: page);
   }
 
@@ -43,10 +43,10 @@ class MovieProvider extends MediaProvider {
 class ShowProvider extends MediaProvider {
   ShowProvider();
 
-  ApiClient _apiClient = ApiClient();
+  final ApiClient _apiClient = ApiClient();
 
   @override
-  Future<List<MediaItem>> loadMedia(String category, {int page: 1}) {
+  Future<List<MediaItem>> loadMedia(String category, {int page= 1}) {
     return _apiClient.fetchShows(category: category, page: page);
   }
 

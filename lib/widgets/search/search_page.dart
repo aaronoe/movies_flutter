@@ -12,12 +12,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchScreen> {
-  ApiClient _apiClient = ApiClient();
-  List<SearchResult> _resultList = List();
-  SearchBar searchBar;
-  LoadingState _currentState = LoadingState.WAITING;
-  PublishSubject<String> querySubject = PublishSubject();
-  TextEditingController textController = TextEditingController();
 
   _SearchPageState() {
     searchBar = SearchBar(
@@ -28,6 +22,14 @@ class _SearchPageState extends State<SearchScreen> {
         onSubmitted: querySubject.add);
   }
 
+  final ApiClient _apiClient = ApiClient();
+  List<SearchResult> _resultList = List<SearchResult>();
+  SearchBar searchBar;
+  LoadingState _currentState = LoadingState.WAITING;
+  PublishSubject<String> querySubject = PublishSubject<String>();
+  TextEditingController textController = TextEditingController();
+
+
   @override
   void initState() {
     super.initState();
@@ -37,10 +39,10 @@ class _SearchPageState extends State<SearchScreen> {
     });
 
     querySubject.stream
-        .where((query) => query.isNotEmpty)
+        .where((String query) => query.isNotEmpty)
         .debounce(Duration(milliseconds: 250))
         .distinct()
-        .switchMap((query) =>
+        .switchMap((String query) =>
             Observable.fromFuture(_apiClient.getSearchResults(query)))
         .listen(_setResults);
   }
@@ -68,17 +70,17 @@ class _SearchPageState extends State<SearchScreen> {
   Widget _buildContentSection() {
     switch (_currentState) {
       case LoadingState.WAITING:
-        return Center(child: Text("Search for movies, shows and actors"));
+        return Center(child: const Text("Search for movies, shows and actors"));
       case LoadingState.ERROR:
-        return Center(child: Text("An error occured"));
+        return Center(child: const Text("An error occured"));
       case LoadingState.LOADING:
         return Center(
-          child: CircularProgressIndicator(),
+          child: const CircularProgressIndicator(),
         );
       case LoadingState.DONE:
-        return (_resultList == null || _resultList.length == 0)
+        return (_resultList == null || _resultList.isEmpty)
             ? Center(
-                child: Text("Unforunately there aren't any matching results!"))
+                child: const Text("Unforunately there aren't any matching results!"))
             : ListView.builder(
                 itemCount: _resultList.length,
                 itemBuilder: (BuildContext context, int index) =>
@@ -90,7 +92,7 @@ class _SearchPageState extends State<SearchScreen> {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-        title: Text('Search Movies'),
-        actions: [searchBar.getSearchAction(context)]);
+        title: const Text('Search Movies'),
+        actions: <Widget>[searchBar.getSearchAction(context)]);
   }
 }

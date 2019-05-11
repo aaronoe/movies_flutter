@@ -3,9 +3,10 @@ import 'package:movies_flutter/model/mediaitem.dart';
 import 'package:movies_flutter/util/navigator.dart';
 
 class SimilarSection extends StatelessWidget {
-  final List<MediaItem> _similarMovies;
 
   SimilarSection(this._similarMovies);
+
+  final List<MediaItem> _similarMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,7 @@ class SimilarSection extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text(
-            "Similar",
+          child: Text("Similar",
             style: TextStyle(color: Colors.white),
           ),
         ),

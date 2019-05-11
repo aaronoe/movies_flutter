@@ -4,9 +4,10 @@ import 'package:movies_flutter/util/styles.dart';
 import 'package:movies_flutter/util/utils.dart';
 
 class EpisodeCard extends StatelessWidget {
-  final Episode episode;
 
   EpisodeCard(this.episode);
+
+  final Episode episode;
 
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,7 @@ class Episode {
       : title = jsonMap['name'],
         overview = jsonMap['overview'],
         stillPath = jsonMap['still_path'] ?? "",
-        voteAverage = jsonMap['vote_average'] as double ?? 0.0,
+        voteAverage = jsonMap['vote_average'] ?? 0.0,
         episodeNumber = jsonMap['episode_number'],
         airDate = jsonMap['air_date'];
 }

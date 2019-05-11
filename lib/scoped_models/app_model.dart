@@ -6,20 +6,22 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppModel extends Model {
-  final SharedPreferences _sharedPrefs;
-  Set<MediaItem> _favorites = Set();
-  static const _THEME_KEY = "theme_prefs_key";
-  static const _FAVORITES_KEY = "media_favorites_key";
 
   AppModel(this._sharedPrefs) {
     _currentTheme = _sharedPrefs.getInt(_THEME_KEY) ?? 0;
     _favorites.addAll(_sharedPrefs
-            .getStringList(_FAVORITES_KEY)
-            ?.map((value) => MediaItem.fromPrefsJson(json.decode(value))) ??
+        .getStringList(_FAVORITES_KEY)
+        ?.map((dynamic value) => MediaItem.fromPrefsJson(json.decode(value))) ??
         Set());
   }
 
-  static List<ThemeData> _themes = [ThemeData.dark(), ThemeData.light()];
+  final SharedPreferences _sharedPrefs;
+  final Set<MediaItem> _favorites = Set();
+  static const _THEME_KEY = "theme_prefs_key";
+  static const _FAVORITES_KEY = "media_favorites_key";
+
+
+  static final List<ThemeData> _themes = [ThemeData.dark(), ThemeData.light()];
   int _currentTheme = 0;
 
   ThemeData get theme => _themes[_currentTheme];
@@ -43,7 +45,7 @@ class AppModel extends Model {
           1 ??
       false;
 
-  // TODO: this should ideally be stored in a database and accessed through a repository
+  // TODO(username): this should ideally be stored in a database and accessed through a repository
   void toggleFavorites(MediaItem favoriteItem) {
     !isItemFavorite(favoriteItem)
         ? _favorites.add(favoriteItem)

@@ -11,8 +11,8 @@ class FittedCircleAvatar extends StatelessWidget {
     this.backgroundColor,
     this.backgroundImage,
     this.foregroundColor,
-    this.radius: 20.0,
-    this.fit: BoxFit.cover,
+    this.radius= 20.0,
+    this.fit= BoxFit.cover,
   }) : super(key: key);
 
   /// The widget below this widget in the tree.

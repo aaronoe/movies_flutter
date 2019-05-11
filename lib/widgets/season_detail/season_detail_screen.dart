@@ -99,7 +99,7 @@ class SeasonDetailScreen extends StatelessWidget {
                       ? Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Center(
-                            child: CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(),
                           ),
                         )
                       : Column(

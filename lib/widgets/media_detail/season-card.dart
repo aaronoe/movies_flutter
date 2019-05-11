@@ -6,12 +6,14 @@ import 'package:movies_flutter/util/styles.dart';
 import 'package:movies_flutter/widgets/utilviews/bottom_gradient.dart';
 
 class SeasonCard extends StatelessWidget {
+
+
+  SeasonCard(this.show, this.season, {this.height= 140.0, this.width= 100.0});
+
   final double height;
   final double width;
   final TvSeason season;
   final MediaItem show;
-
-  SeasonCard(this.show, this.season, {this.height: 140.0, this.width: 100.0});
 
   @override
   Widget build(BuildContext context) {

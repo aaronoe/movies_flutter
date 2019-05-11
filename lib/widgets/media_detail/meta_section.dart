@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movies_flutter/util/utils.dart';
 
 class MetaSection extends StatelessWidget {
+  MetaSection(this.data);
+
   final dynamic data;
 
-  MetaSection(this.data);
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +60,23 @@ class MetaSection extends StatelessWidget {
   }
 
   Widget _getSectionOrContainer(String title, String content,
-      {dynamic formatterFunction, bool isLink: false}) {
+      {dynamic formatterFunction, bool isLink= false}) {
     return data[content] == null
         ? Container()
         : _getMetaInfoSection(
             title,
-            (formatterFunction != null
+            formatterFunction != null
                 ? formatterFunction(data[content])
-                : data[content]),
+                : data[content],
             isLink: isLink);
   }
 
   Widget _getMetaInfoSection(String title, String content,
-      {bool isLink: false}) {
-    if (content == null) return Container();
+      {bool isLink = false}) {
+    if (content == null)
+      return Container();
 
-    var contentSection = Expanded(
+    final contentSection = Expanded(
       flex: 4,
       child: GestureDetector(
         onTap: () => isLink ? launchUrl(content) : null,
