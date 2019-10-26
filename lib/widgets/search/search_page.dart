@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchScreen> {
 
     querySubject.stream
         .where((query) => query.isNotEmpty)
-        .debounce(Duration(milliseconds: 250))
+        .debounceTime(Duration(milliseconds: 250))
         .distinct()
         .switchMap((query) =>
             Observable.fromFuture(_apiClient.getSearchResults(query)))
