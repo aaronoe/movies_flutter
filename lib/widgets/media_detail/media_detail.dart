@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_flutter/model/cast.dart';
 import 'package:movies_flutter/model/mediaitem.dart';
 import 'package:movies_flutter/model/tvseason.dart';
-import 'package:movies_flutter/scoped_models/app_model.dart';
+import 'package:movies_flutter/scoped_models/app_model_db.dart';
 import 'package:movies_flutter/util/api_client.dart';
 import 'package:movies_flutter/util/mediaproviders.dart';
 import 'package:movies_flutter/util/styles.dart';
@@ -153,10 +153,13 @@ class MediaDetailScreenState extends State<MediaDetailScreen> {
               child: Text(mediaItem.title,
                   style: TextStyle(color: Color(0xFFEEEEEE), fontSize: 20.0)),
             ),
-            Row(
-              children: getGenresForIds(mediaItem.genreIds)
-                  .sublist(0, min(5, mediaItem.genreIds.length))
-                  .map((genre) => Row(
+             Wrap(
+            spacing: 8.0, // gap between adjacent chips
+            runSpacing: 4.0, // gap between lines
+            direction: Axis.horizontal, // main axis (rows or columns)
+            children: getGenresForIds(mediaItem.genreIds)
+                            .sublist(0, min(5, mediaItem.genreIds.length))
+                  .map((genre) => Column(
                         children: <Widget>[
                           TextBubble(genre),
                           Container(

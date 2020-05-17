@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -6,6 +7,21 @@ enum LoadingState { DONE, LOADING, WAITING, ERROR }
 final dollarFormat = NumberFormat("#,##0.00", "en_US");
 final sourceFormat = DateFormat('yyyy-MM-dd');
 final dateFormat = DateFormat.yMMMMd("en_US");
+
+Future<bool> isConnected() async {
+    bool r = false;
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // print('connected');
+        r = true;
+      }
+    } on SocketException catch (_) {
+      // print('not connected');
+      r = false;
+    }
+    return r;
+  }
 
 Map<int, String> _genreMap = {
   28: 'Action',
@@ -86,3 +102,4 @@ final String _imageUrlMedium = "https://image.tmdb.org/t/p/w300/";
 String getMediumPictureUrl(String path) => _imageUrlMedium + path;
 
 String getLargePictureUrl(String path) => _imageUrlLarge + path;
+

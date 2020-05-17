@@ -11,6 +11,27 @@ class MediaItem {
   String releaseDate;
   List<int> genreIds;
 
+
+//Add Constructor for DB
+
+  MediaItem.fromDB({ this.type,this.id, this.voteAverage, this.title, this.posterPath, this.backdropPath, this.overview, this.releaseDate, this.genreIds});
+
+Map<String, dynamic> toMap() {
+    return {
+      'type': type == MediaType.movie ? 1 : 0,
+        'id': id,
+        'voteAverage': voteAverage,
+        'title': title,
+        'posterPath': posterPath,
+        'backdropPath': backdropPath,
+        'overview': overview,
+        'releaseDate': releaseDate,
+        'genreIds': genreIds.toString()
+    };
+  }
+
+
+
   String getBackDropUrl() => getLargePictureUrl(backdropPath);
 
   String getPosterUrl() => getMediumPictureUrl(posterPath);

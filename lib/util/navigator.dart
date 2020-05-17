@@ -12,7 +12,7 @@ import 'package:movies_flutter/widgets/season_detail/season_detail_screen.dart';
 goToMovieDetails(BuildContext context, MediaItem movie) {
   MediaProvider provider =
       (movie.type == MediaType.movie) ? MovieProvider() : ShowProvider();
-  _pushWidgetWithFade(context, MediaDetailScreen(movie, provider));
+  _pushDetailMediaWidgetWithFade(context, MediaDetailScreen(movie, provider));
 }
 
 goToSeasonDetails(BuildContext context, MediaItem show, TvSeason season) =>
@@ -31,6 +31,7 @@ goToFavorites(BuildContext context) {
 }
 
 _pushWidgetWithFade(BuildContext context, Widget widget) {
+  
   Navigator.of(context).push(
         PageRouteBuilder(
             transitionsBuilder:
@@ -42,3 +43,18 @@ _pushWidgetWithFade(BuildContext context, Widget widget) {
             }),
       );
 }
+_pushDetailMediaWidgetWithFade(BuildContext context, Widget widget) {
+      Navigator.of(context).pushAndRemoveUntil(PageRouteBuilder(
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+            pageBuilder: (BuildContext context, Animation animation,
+                Animation secondaryAnimation) {
+              return widget;
+            }), (route) => 
+             route.isFirst || route.isCurrent
+            );
+
+ 
+}
+

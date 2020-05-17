@@ -11,9 +11,11 @@ dependencies:
   url_launcher: "^3.0.0"
   intl: "^0.15.2"
   flutter_search_bar: "^2.0.2"
-  rxdart: "^0.16.5"
-  scoped_model: "^0.2.0"
+  rxdart: "^0.18.0"
+  scoped_model: "^1.0.1"
   shared_preferences: "^0.4.1"
+  sqflite:
+  path:
 
 dev_dependencies:
   flutter_test:
