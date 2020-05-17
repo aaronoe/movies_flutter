@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:movies_flutter/util/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_flutter/model/cast.dart';
 import 'package:movies_flutter/model/mediaitem.dart';
@@ -18,22 +18,28 @@ class ActorDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var movieFuture = _apiClient.getMoviesForActor(_actor.id);
     var showFuture = _apiClient.getShowsForActor(_actor.id);
-
-    return DefaultTabController(
+    var connectivity = isConnected();
+    return  DefaultTabController(
       length: 2,
       child: Scaffold(
         backgroundColor: primary,
-        body: NestedScrollView(
+        body: FutureBuilder(
+      future:  connectivity,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        return snapshot.hasData ? NestedScrollView(
           body: TabBarView(
             children: <Widget>[
-              _buildMoviesSection(movieFuture),
-              _buildMoviesSection(showFuture),
+              _buildMoviesSection(movieFuture, snapshot.data),
+              _buildMoviesSection(showFuture, snapshot.data),
             ],
           ),
           headerSliverBuilder:
               (BuildContext context, bool innerBoxIsScrolled) =>
                   [_buildAppBar(context, _actor)],
-        ),
+        ): Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Center(child: CircularProgressIndicator()));
+                }),
       ),
     );
   }
@@ -92,7 +98,7 @@ class ActorDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMoviesSection(Future<List<MediaItem>> future) {
+  Widget _buildMoviesSection(Future<List<MediaItem>> future, bool connectivity) {
     return FutureBuilder(
       future: future,
       builder: (BuildContext context, AsyncSnapshot<List<MediaItem>> snapshot) {
@@ -102,10 +108,10 @@ class ActorDetailScreen extends StatelessWidget {
                     MediaListItem(snapshot.data[index]),
                 itemCount: snapshot.data.length,
               )
-            : Padding(
+            : connectivity ? Padding(
                 padding: const EdgeInsets.all(32.0),
                 child: Center(child: CircularProgressIndicator()),
-              );
+              ): Center(child: Text("Sorry, you do not have internet access"));
       },
     );
   }
